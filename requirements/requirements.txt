@@ -1,0 +1,5 @@
+python-dotenv
+flask
+Flask-PyMongo
+sentry-sdk[flask]
+jsonschema

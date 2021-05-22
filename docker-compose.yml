@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: python app.py
+    ports:
+      - "5000"
+    links:
+      - db
+    volumes:
+      - ./:/my-collection
+  db:
+    image: mongo:4.4.2
