@@ -23,6 +23,9 @@ class Config:
     def name(cls):
         raise NotImplementedError('Subclass responsability')
 
+    @classmethod
+    def need_initialization(cls):
+        raise NotImplementedError('Subclass responsibility')
 
 class TestConfig(Config):
     NAME = 'testing'
@@ -39,6 +42,9 @@ class TestConfig(Config):
     def is_correct_for(cls, environment_name):
         return environment_name == cls.name()
 
+    @classmethod
+    def need_initialization(cls):
+        return True
 
 class DevelopmentConfig(Config):
     NAME = 'development'
@@ -55,6 +61,9 @@ class DevelopmentConfig(Config):
     def is_correct_for(cls, environment_name):
         return environment_name == cls.name()
 
+    @classmethod
+    def need_initialization(cls):
+        return True
 
 class ProductionConfig(Config):
     NAME = 'production'
@@ -70,3 +79,7 @@ class ProductionConfig(Config):
     @classmethod
     def is_correct_for(cls, environment_name):
         return environment_name == cls.NAME
+    
+    @classmethod
+    def need_initialization(cls):
+        return False

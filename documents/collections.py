@@ -2,6 +2,7 @@ from jsonschema import validate, ValidationError
 from database import mongo
 
 from documents.invitations import InvitationsCollection
+from documents.moodboards import MoodboardsCollection
 
 
 class CollectionsCollection():
@@ -19,12 +20,14 @@ class CollectionsCollection():
         return new_collection_id
 
     def edit(self, collection_id, user_id, json_data):
-        collection = self.get_collection_by_id(collection_id, user_id, invited_allowed=False)
+        collection = self.get_collection_by_id(
+            collection_id, user_id, invited_allowed=False)
         self._collections.update_one({'id': collection['id']}, {
                                      "$set": {'name': json_data['name']}})
 
     def delete(self, collection_id, user_id):
-        collection = self.get_collection_by_id(collection_id, user_id, invited_allowed=False)
+        collection = self.get_collection_by_id(
+            collection_id, user_id, invited_allowed=False)
         self._collections.update_one({'id': collection['id']}, {
                                      "$set": {'deleted': True}})
 
@@ -51,12 +54,48 @@ class CollectionsCollection():
             self._validate_ownership(user_id, collection)
         elif not self._is_owner_of_collection(user_id, collection):
             self._validate_invitation(user_id, collection_id)
-        
+
         return collection
+
+    def add_image(self, collection_id, user_id, json_data):
+        trend_id = json_data['trend_id']
+
+        collection = self.get_collection_by_id(
+            collection_id, user_id, invited_allowed=False)
+        trend = MoodboardsCollection().get_trend_by_id(trend_id)
+
+        md5 = trend['media'][0]['md5']
+        label = trend['media'][0]['label']
+        self._validate_duplicated_image(collection['id'], md5)
+        
+        self._collections.update_one({'id': collection['id']}, {
+                                     "$push": {'images': {
+                                         'md5': md5,
+                                         'label': label
+                                     }}})
+
+    def delete_image(self, collection_id, user_id, json_data):
+        image_id = json_data['md5']
+
+        collection = self.get_collection_by_id(
+            collection_id, user_id, invited_allowed=False)
+
+        self._collections.update_one({'id': collection['id']}, {
+                                     "$pull": {'images': { 'md5': image_id }}})
 
     def count(self):
         return self._collections.count_documents({})
 
+    def _validate_duplicated_image(self, collection_id, image_id):
+        filter = {'id': collection_id,
+                  'images.md5': image_id,
+                  'deleted': False}
+
+        collection = self._collections.find_one(filter)
+        if collection:
+            raise ValidationError(
+                f"The image is already associated with the collection id: {collection_id}.")
+            
     def _validate_not_empty_collection(self, collection, collection_id):
         if not collection:
             raise ValidationError(
@@ -71,7 +110,7 @@ class CollectionsCollection():
         if not InvitationsCollection().user_has_access(user_id, collection_id):
             raise ValidationError(
                 f"Collection id: {collection_id} is private.")
-    
+
     def _is_owner_of_collection(self, user_id, collection):
         return collection['user_id'] == user_id
 
@@ -96,9 +135,12 @@ class CollectionsCollection():
                 "id": {"type": "integer", "minimum": 0},
                 "user_id": {"type": "integer"},
                 "name": {"type": "string"},
+                "images": {"type": "array",
+                           "items": {"type": "string"},
+                           "uniqueItems": True},
                 "deleted": {"type": "boolean"}
             },
-            "required": ["id", "user_id", "name"],
+            "required": ["id", "user_id", "name", "deleted"],
             "additionalProperties": False
         }
 

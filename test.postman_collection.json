@@ -1,0 +1,547 @@
+{
+	"info": {
+		"_postman_id": "9608ccc6-9ea3-46ed-b31f-d54b03a71c75",
+		"name": "Test",
+		"description": "Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add user and login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"desuqueleandro@gmail.com\",\n    \"password\": \"123abc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/users/add-and-login",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"add-and-login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user and login (2nd user)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"invited@gmail.com\",\n    \"password\": \"123abc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/users/add-and-login",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"add-and-login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "tktclaazizxcdtawcjlu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"desuqueleandro@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.19.0.3:5000/api/users/logout",
+					"protocol": "http",
+					"host": [
+						"172",
+						"19",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new collection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "trvgrobhtrkboavupetl"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jeans collection user 2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/collections",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"collections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user collections",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "fpntqwsjfbquhbpiyoaf"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/users/collections",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"collections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get collection as owner",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "fpntqwsjfbquhbpiyoaf"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/collections/7",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"collections",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get collection as invited (not valid user)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "vugtnipaoglqaacquntw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/collections/1",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"collections",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit collection name",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "dpsrxtrneyyuyfzrmmxx"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"User 2 edit coll 1, not possible\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/collections/edit/1",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"collections",
+						"edit",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete collection (owner)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "dpsrxtrneyyuyfzrmmxx"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/collections/1",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"collections",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new invitation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "dpsrxtrneyyuyfzrmmxx"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"collection_id\": 1,\n    \"invited_id\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/invitations",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"invitations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get moodboards file",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/moodboards",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"moodboards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get trend from moodboard",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trend_id\": \"903613434121276483\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/moodboards/trend",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"moodboards",
+						"trend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add image to collection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "fpntqwsjfbquhbpiyoaf"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trend_id\": \"903613434121276483\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/collections/custom/7",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"collections",
+						"custom",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete image from collection",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "fpntqwsjfbquhbpiyoaf"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"md5\": \"8d8fec50ad0e7c705e7b199512e82103\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.22.0.3:5000/api/collections/custom/7",
+					"protocol": "http",
+					"host": [
+						"172",
+						"22",
+						"0",
+						"3"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"collections",
+						"custom",
+						"7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

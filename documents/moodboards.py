@@ -1,3 +1,4 @@
+
 from jsonschema import validate, ValidationError
 from database import mongo
 
@@ -6,21 +7,21 @@ class MoodboardsCollection():
     def __init__(self):
         self._moodboards = mongo.db['moodboards']
 
-    def _validate(self, json_data):
-        validate(instance=json_data, schema=self._json_schema())
-
-    def _json_schema(self):
-        schema = {
-            "type": "object",
-            "properties": {
-                "comments": {"type": "integer"},
-                "likes": {"type": "integer"},
-                "panel_name": {"type": "array",
-                               "items": [{"type": "string"}]
-                               },
-            },
-            "required": ["id", "user_id", "name"],
-            "additionalProperties": False
-        }
-
-        return schema
+    def get_moodboards(self):
+        hide_info = {'_id': 0}
+        
+        return self._moodboards.find(projection=hide_info)
+    
+    def get_trend_by_id(self, trend_id):
+        filter = {'id': trend_id}
+        hide_info = {'_id': 0}
+        
+        trend = self._moodboards.find_one(filter, hide_info)
+        self._validate_not_empty_trend(trend, trend_id)
+        
+        return trend
+    
+    def _validate_not_empty_trend(self, trend, trend_id):
+        if not trend:
+            raise ValidationError(
+                f"Trend id: {trend_id} not found.")

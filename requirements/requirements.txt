@@ -3,3 +3,4 @@ flask
 Flask-PyMongo
 sentry-sdk[flask]
 jsonschema
+ndjson

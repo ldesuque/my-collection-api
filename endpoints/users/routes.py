@@ -8,7 +8,6 @@ from documents.sessions import SessionsCollection
 from . import users
 
 
-#TODO Login compare password
 @users.route('/users/add-and-login', methods=['POST'])
 def add_user():
     try:
@@ -17,15 +16,15 @@ def add_user():
 
         if users_collection.exists_with(email=request_data['email']):
             new_user_created = False
-            user = users_collection.find_one({'email': request_data['email']})
+            user = users_collection.login(request_data)
         else:
             new_user_created = True
             user = users_collection.add(json_data=request_data)
         
         token = SessionsCollection().create_for(user)
         response = {"object": {
-                "new_user_created": new_user_created, "token": token, "user": user, "errors": []}}
-        status_code = 200
+                "new_user_created": new_user_created, "token": token, "errors": []}}
+        status_code = 201
     except Exception as error:
         response = {"object": {}, "errors": [str(error)]}
         status_code = 500
